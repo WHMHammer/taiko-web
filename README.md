@@ -1,11 +1,16 @@
-# taiko-web
-A web-based Taiko no Tatsujin simulator.
+# taiko-web-docker
 
-Running instance: [https://taiko.bui.pm](https://taiko.bui.pm)
+Forked from [@bui](https://github.com/bui)'s [taiko-web](https://github.com/bui/taiko-web) project.
 
-Still in development. Works best with Chrome.
+Server-related parts are removed to minimize resource consumption.
 
-## Setup
+"Works best with Chrome." - [@bui](https://github.com/bui)
+
+## License
+
+[@bui](https://github.com/bui) hasn't specified a license in the original repo at this moment. I'll stay with GPLv3 (for my very very minor changes in [taiko-web-docker](https://github.com/WHMHammer/taiko-web-docker)) unless [@bui](https://github.com/bui) decides otherwise.
+
+## Set up with Docker
 
 Run the following lines in shell.
 
@@ -17,3 +22,16 @@ docker run --name CONTAINER_NAME -p 80:80 -d IMAGE_NAME
 ```
 
 Then visit `localhost` to start playing.
+
+## Set up with nginx
+
+Follow these steps from the official documentation:
+
+- [Installing nginx](https://nginx.org/en/docs/install.html)
+- [Serving Static Content](https://nginx.org/en/docs/beginners_guide.html#static)
+
+You will need to copy both the `index.html` file and the whole `src` directory.
+
+## Related project
+
+- Download tja files and songs - [tja-download](https://github.com/WHMHammer/tja-download)
