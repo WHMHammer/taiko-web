@@ -2,24 +2,36 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>太鼓ウェブ - Taiko Web</title>
-		<link rel="icon" href="/assets/img/favicon.png" type="image/png">
 		<meta name="viewport" content="width=device-width, user-scalable=no">
 		<meta name="description"
 			content="パソコンとスマホのブラウザ向けの太鼓の達人シミュレータ 🥁 Taiko no Tatsujin rhythm game simulator for desktop and mobile browsers">
+		<link rel="icon" href="/assets/img/favicon.png" type="image/png">
 		<link rel="stylesheet" href="/src/css/loader.css">
+		<title>太鼓ウェブ - Taiko Web</title>
+	</head>
+	<body>
+		<div id="assets">
+			<div id="loader">
+				<div class="progress"></div>
+				<span class="percentage">0%</span>
+			</div>
+			<div class="view-outer loader-error-div">
+				<div class="view">
+					<div class="view-content">An error occurred, please refresh</div>
+					<div class="diag-txt"></div>
+					<span class="debug-link">Debug</span>
+				</div>
+			</div>
+		</div>
+		<div id="screen" class="pattern-bg"></div>
+		<div id="version">
+			<a href="https://github.com/WHMHammer/taiko-web-docker" target="_blank" id="version-link" class="stroke-sub"
+				alt="taiko-web">taiko-web</a>
+		</div>
 		<script src="/src/js/assets.js"></script>
 		<script src="/src/js/strings.js"></script>
 		<script src="/src/js/pageevents.js"></script>
 		<script src="/src/js/loader.js"></script>
-	</head>
-	<body>
-		<div id="assets"></div>
-		<div id="screen" class="pattern-bg"></div>
-		<div id="version">
-			<a href="https://github.com/WHMHammer/taiko-web-docker" target="_blank" id="version-link" class="stroke-sub"
-				alt="taiko-web (unknown version)">taiko-web (unknown version)</a>
-		</div>
 		<script src="/src/js/browsersupport.js"></script>
 		<script src="/src/js/main.js"></script>
 	</body>

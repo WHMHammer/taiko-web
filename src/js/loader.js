@@ -7,17 +7,8 @@ class Loader {
 		this.startTime = Date.now()
 		this.errorMessages = []
 
-		var promises = []
-
-		promises.push(this.ajax("/src/views/loader.html").then(page => {
-			this.screen.innerHTML = page
-		}))
-
-		promises.push(this.ajax("/api/config.json").then(conf => {
-			gameConfig = JSON.parse(conf)
-		}))
-
-		Promise.all(promises).then(this.run.bind(this))
+		this.run.bind(this)
+		this.run()
 	}
 	run() {
 		this.promises = []
@@ -100,28 +91,6 @@ class Loader {
 			}), url)
 		})
 
-		this.addPromise(this.ajax("/api/categories.json").then(cats => {
-			assets.categories = JSON.parse(cats)
-			assets.categories.forEach(cat => {
-				if (cat.song_skin) {
-					cat.songSkin = cat.song_skin //rename the song_skin property and add category title to categories array
-					delete cat.song_skin
-					cat.songSkin.infoFill = cat.songSkin.info_fill
-					delete cat.songSkin.info_fill
-				}
-			})
-
-			assets.categories.push({
-				title: "default",
-				songSkin: {
-					background: "#ececec",
-					border: ["#fbfbfb", "#8b8b8b"],
-					outline: "#656565",
-					infoFill: "#656565"
-				}
-			})
-		}), "/api/categories")
-
 		var url = gameConfig.assets_baseurl + "img/vectors.json" + this.queryString
 		this.addPromise(this.ajax(url).then(response => {
 			vectors = JSON.parse(response)
@@ -136,40 +105,12 @@ class Loader {
 			assets.audioSfx.length +
 			assets.audioMusic.length +
 			assets.audioSfxLR.length +
-			assets.audioSfxLoud.length +
-			(gameConfig.accounts ? 1 : 0)
+			assets.audioSfxLoud.length
 
 		Promise.all(this.promises).then(() => {
 			if (this.error) {
 				return
 			}
-
-			this.addPromise(this.ajax("/api/songs.json").then(songs => {
-				songs = JSON.parse(songs)
-				songs.forEach(song => {
-					var directory = gameConfig.songs_baseurl + song.id + "/"
-					var songExt = song.music_type ? song.music_type : "mp3"
-					song.music = new RemoteFile(directory + "main." + songExt)
-					if (song.type === "tja") {
-						song.chart = new RemoteFile(directory + "main.tja")
-					} else {
-						song.chart = { separateDiff: true }
-						for (var diff in song.courses) {
-							if (song.courses[diff]) {
-								song.chart[diff] = new RemoteFile(directory + diff + ".osu")
-							}
-						}
-					}
-					if (song.lyrics) {
-						song.lyricsFile = new RemoteFile(directory + "main.vtt")
-					}
-					if (song.preview > 0) {
-						song.previewMusic = new RemoteFile(directory + "preview.mp3")
-					}
-				})
-				assets.songsDefault = songs
-				assets.songs = assets.songsDefault
-			}), "/api/songs")
 
 			var categoryPromises = []
 			assets.categories //load category backgrounds to DOM
@@ -234,20 +175,6 @@ class Loader {
 					disableBlur = true
 				}
 			}), "blurPerformance")
-
-			if (gameConfig.accounts) {
-				this.addPromise(this.ajax("/api/scores/get").then(response => {
-					response = JSON.parse(response)
-					if (response.status === "ok") {
-						account.loggedIn = true
-						account.username = response.username
-						account.displayName = response.display_name
-						account.don = response.don
-						scoreStorage.load(response.scores)
-						pageEvents.send("login", account.username)
-					}
-				}), "/api/scores/get")
-			}
 
 			settings = new Settings()
 			pageEvents.setKbd()

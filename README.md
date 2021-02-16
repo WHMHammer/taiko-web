@@ -9,7 +9,7 @@ Still in development. Works best with Chrome.
 
 Run the following lines in shell.
 
-Replace IMAGE_NAME and CONTAINER_NAME with the actual names you'd like to take.
+Replace `IMAGE_NAME` and `CONTAINER_NAME` with the actual names you'd like to take.
 
 ``` {sh}
 docker build -t IMAGE_NAME .
