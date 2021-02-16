@@ -8,7 +8,7 @@ Server-related parts are removed to minimize resource consumption.
 
 ## License
 
-[@bui](https://github.com/bui) hasn't specified a license in the original repo at this moment. I'll stay with GPLv3 (for my very very minor changes in [taiko-web-docker](https://github.com/WHMHammer/taiko-web-docker)) unless [@bui](https://github.com/bui) decides otherwise.
+[@bui](https://github.com/bui) hasn't specified a license in the original repo at this moment. I'll stay with [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) (for my very very minor changes in [taiko-web-docker](https://github.com/WHMHammer/taiko-web-docker)) unless [@bui](https://github.com/bui) decides otherwise.
 
 ## Set up with Docker
 
